@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Casino Tools Hub – Wagering & RTP Calculators + Bonus Tracker</title>
+  <meta name="description" content="Free wagering requirement calculator, RTP/house-edge calculator, and bonus tracker. Built for affiliate growth with zero-cost hosting."/>
+  <meta property="og:title" content="Casino Tools Hub"/>
+  <meta property="og:description" content="Free wagering calculator, RTP tool, and bonuses."/>
+  <meta property="og:type" content="website"/>
+  <meta name="robots" content="index,follow"/>
+  <style>
+    :root { --bg:#0b0f17; --panel:#121826; --muted:#9aa4b2; --text:#e5e7eb; --accent:#4ade80; --danger:#f87171; }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+    a{color:#93c5fd}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px}
+    header{display:flex;gap:16px;align-items:center;justify-content:space-between}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#22d3ee,#a78bfa);display:grid;place-items:center;font-weight:700}
+    .nav{display:flex;gap:12px;flex-wrap:wrap}
+    .chip{background:#1f2937;color:#cbd5e1;border:1px solid #293140;padding:6px 10px;border-radius:8px;text-decoration:none}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:20px}
+    .card{grid-column:span 12;background:var(--panel);border:1px solid #1f2937;border-radius:14px;padding:16px}
+    @media(min-width:900px){.card.span6{grid-column:span 6}}
+    h1{font-size:26px;margin:0}
+    h2{font-size:18px;margin:0 0 8px 0}
+    .muted{color:var(--muted);font-size:14px}
+    label{display:block;font-size:13px;color:#cbd5e1;margin-top:10px}
+    input,select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #293140;background:#0f1523;color:#e5e7eb;margin-top:6px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .btn{display:inline-flex;align-items:center;gap:8px;background:#1f2937;border:1px solid #303a4a;color:#e5e7eb;padding:10px 14px;border-radius:10px;cursor:pointer}
+    .btn.primary{background:linear-gradient(135deg,#22c55e,#14b8a6);color:#082f1d;border:none}
+    .btn.small{padding:6px 10px;font-size:13px}
+    .stat{background:#0f1523;border:1px solid #293140;border-radius:12px;padding:12px;margin-top:12px}
+    .stat strong{font-size:18px}
+    .note{background:#0f1523;border-left:3px solid var(--accent);padding:10px 12px;border-radius:8px;margin-top:10px}
+    .tbl{width:100%;border-collapse:collapse;margin-top:8px}
+    .tbl th,.tbl td{border-bottom:1px solid #253046;padding:10px;text-align:left}
+    .badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:12px;border:1px solid #2b3344;background:#121a2b}
+    .ok{color:var(--accent)} .warn{color:#fbbf24} .bad{color:var(--danger)}
+    footer{margin:32px 0 8px;color:#73819a;font-size:12px}
+    .flex{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+    .sr{position:absolute;left:-9999px}
+    .hr{height:1px;background:#1f2838;margin:14px 0}
+    .pill{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border-radius:999px;background:#0f1523;border:1px solid #263144;color:#cbd5e1}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">CT</div>
+        <div>
+          <h1>Casino Tools Hub</h1>
+          <div class="muted">Free calculators • Bonus tracker • Affiliate-ready</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="chip" href="#wager">Wagering Calc</a>
+        <a class="chip" href="#rtp">RTP / Edge</a>
+        <a class="chip" href="#bonuses">Bonuses</a>
+        <a class="chip" href="#faq">FAQ</a>
+      </nav>
+    </header>
+
+    <div class="grid">
+      <!-- WAGERING CALCULATOR -->
+      <section id="wager" class="card span6">
+        <h2>Wagering Requirement Calculator</h2>
+        <p class="muted">Estimate total playthrough and expected loss after a bonus.</p>
+        <div class="row">
+          <div>
+            <label>Deposit (base currency)
+              <input id="dep" type="number" min="0" step="0.01" value="100" />
+            </label>
+          </div>
+          <div>
+            <label>Bonus amount
+              <input id="bonus" type="number" min="0" step="0.01" value="100" />
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>Wagering multiple (e.g., 30×)
+              <input id="multiple" type="number" min="0" step="1" value="30" />
+            </label>
+          </div>
+          <div>
+            <label>Game contribution
+              <select id="contrib">
+                <option value="1">Slots 100%</option>
+                <option value="0.5">Roulette 50%</option>
+                <option value="0.1">Blackjack 10%</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label>House edge (%)
+              <input id="edge" type="number" min="0" step="0.01" value="4" />
+            </label>
+          </div>
+          <div>
+            <label>Use deposit+bonus or bonus only
+              <select id="base">
+                <option value="db">Deposit + Bonus</option>
+                <option value="b">Bonus Only</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="flex" style="margin-top:10px">
+          <button class="btn primary" onclick="calcWagering()">Calculate</button>
+          <button class="btn" onclick="resetWagering()">Reset</button>
+        </div>
+        <div id="wagerOut" class="stat" aria-live="polite"></div>
+        <div class="note">This is an estimate. Real outcomes vary by variance and rules.</div>
+      </section>
+
+      <!-- RTP / EDGE CALCULATOR -->
+      <section id="rtp" class="card span6">
+        <h2>RTP / House Edge</h2>
+        <p class="muted">Convert RTP to edge and estimate expected loss for a session.</p>
+        <div class="row">
+          <div>
+            <label>RTP (%)
+              <input id="rtpIn" type="number" min="0" max="100" step="0.01" value="96" />
+            </label>
+          </div>
+          <div>
+            <label>Total wagered this session
+              <input id="sessionWager" type="number" min="0" step="0.01" value="1000" />
+            </label>
+          </div>
+        </div>
+        <div class="flex" style="margin-top:10px">
+          <button class="btn primary" onclick="calcRTP()">Calculate</button>
+          <button class="btn" onclick="resetRTP()">Reset</button>
+        </div>
+        <div id="rtpOut" class="stat" aria-live="polite"></div>
+        <div class="note">House edge = 100% − RTP. Expected loss = edge × wager.</div>
+      </section>
+
+      <!-- BONUS TRACKER -->
+      <section id="bonuses" class="card">
+        <div class="flex">
+          <h2 style="margin-right:auto">Top Casino Bonuses</h2>
+          <button class="btn small" onclick="shuffleBonuses()">Shuffle</button>
+        </div>
+        <p class="muted">These slots accept query params like <span class="pill">?ref=YOURCODE</span> and auto-append to outbound links.</p>
+        <table class="tbl" id="bonusTable">
+          <thead>
+            <tr>
+              <th>Brand</th>
+              <th>Offer</th>
+              <th>Wagering</th>
+              <th>Notes</th>
+              <th>Go</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="note">Replace placeholders with your real affiliate links in the <strong>CONFIG.bonuses</strong> object below.</div>
+      </section>
+
+      <!-- FAQ / DISCLOSURE -->
+      <section id="faq" class="card">
+        <h2>FAQ & Disclosure</h2>
+        <div class="hr"></div>
+        <p><strong>Is gambling risky?</strong> Yes. These tools provide estimates only. Do not gamble what you cannot afford to lose.</p>
+        <p><strong>Affiliate disclosure:</strong> Some outbound links are affiliate links. If you sign up or deposit, we may earn a commission at no extra cost to you.</p>
+      </section>
+    </div>
+
+    <footer>
+      <div>© <span id="y"></span> Casino Tools Hub. Built with vanilla HTML/CSS/JS. Host on GitHub Pages for free.</div>
+    </footer>
+  </div>
+
+  <script>
+    // ---------------- CONFIG ----------------
+    const CONFIG = {
+      // Optional: capture ?ref= code from URL and append to outbound links automatically
+      captureRefParam: 'ref',
+      // Replace these with your real affiliate links. You can also keep {REF} placeholder to auto-append captured ref
+      bonuses: [
+        { brand: 'Stake', offer: '200% up to $1,000', wagering: '30× bonus', notes: 'Slots 100% contrib', url: 'https://example.com/stake?ref={REF}' },
+        { brand: 'BC.Game', offer: '180% welcome', wagering: '25× bonus', notes: 'Game-weighted', url: 'https://example.com/bcgame?ref={REF}' },
+        { brand: 'Rollbit', offer: 'Deposit match', wagering: '35× bonus', notes: 'Varies by game', url: 'https://example.com/rollbit?ref={REF}' },
+      ]
+    };
+
+    // Util: currency formatting
+    const fmt = (n)=> new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',maximumFractionDigits:2}).format(Number(n||0));
+    const pct = (n)=> (Number(n).toFixed(2)+'%');
+
+    // Capture and persist ?ref=
+    const url = new URL(location.href);
+    const refFromUrl = url.searchParams.get(CONFIG.captureRefParam);
+    if(refFromUrl){ localStorage.setItem('hub_ref', refFromUrl); }
+    const ref = localStorage.getItem('hub_ref') || '';
+
+    // Build bonus table
+    function buildBonuses(){
+      const tbody = document.querySelector('#bonusTable tbody');
+      tbody.innerHTML = '';
+      CONFIG.bonuses.forEach(b => {
+        const tr = document.createElement('tr');
+        const link = b.url.replace('{REF}', encodeURIComponent(ref)).replace('{ref}', encodeURIComponent(ref));
+        tr.innerHTML = `
+          <td><span class="badge">${b.brand}</span></td>
+          <td>${b.offer}</td>
+          <td>${b.wagering}</td>
+          <td class="muted">${b.notes||''}</td>
+          <td><a class="btn small" rel="nofollow sponsored" target="_blank" href="${link}">Claim</a></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function shuffleBonuses(){
+      CONFIG.bonuses.sort(()=>Math.random()-0.5);
+      buildBonuses();
+    }
+
+    // Wagering calculator
+    function calcWagering(){
+      const dep = +document.getElementById('dep').value || 0;
+      const bonus = +document.getElementById('bonus').value || 0;
+      const multiple = +document.getElementById('multiple').value || 0;
+      const contrib = +document.getElementById('contrib').value || 1;
+      const edgePct = (+document.getElementById('edge').value || 0) / 100;
+      const base = document.getElementById('base').value;
+
+      const baseAmount = base === 'db' ? dep + bonus : bonus;
+      const requiredWagerRaw = baseAmount * multiple; // before game contribution
+      const requiredWager = requiredWagerRaw / Math.max(contrib, 0.0001);
+      const expLoss = requiredWager * edgePct;
+      const effCost = Math.max(0, expLoss - bonus); // rough effective cost after bonus
+
+      const riskClass = expLoss < bonus*0.3 ? 'ok' : expLoss < bonus ? 'warn' : 'bad';
+
+      document.getElementById('wagerOut').innerHTML = `
+        <div class="flex" style="justify-content:space-between;flex-wrap:wrap">
+          <div>
+            <div class="muted">Required playthrough</div>
+            <strong>${fmt(requiredWager)}</strong>
+          </div>
+          <div>
+            <div class="muted">Expected loss (at ${pct(edgePct*100)})</div>
+            <strong class="${riskClass}">${fmt(expLoss)}</strong>
+          </div>
+          <div>
+            <div class="muted">Bonus value</div>
+            <strong>${fmt(bonus)}</strong>
+          </div>
+          <div>
+            <div class="muted">Rough net after bonus</div>
+            <strong class="${riskClass}">${fmt(bonus - expLoss)}</strong>
+          </div>
+        </div>
+      `;
+    }
+    function resetWagering(){
+      ['dep','bonus','multiple','edge'].forEach(id=>document.getElementById(id).value='');
+      document.getElementById('contrib').value='1';
+      document.getElementById('base').value='db';
+      document.getElementById('wagerOut').innerHTML='';
+    }
+
+    // RTP calculator
+    function calcRTP(){
+      const rtp = +document.getElementById('rtpIn').value || 0;
+      const wager = +document.getElementById('sessionWager').value || 0;
+      const edge = Math.max(0, 100 - rtp);
+      const expLoss = (edge/100) * wager;
+      const klass = expLoss < wager*0.02 ? 'ok' : expLoss < wager*0.05 ? 'warn' : 'bad';
+      document.getElementById('rtpOut').innerHTML = `
+        <div class="flex" style="justify-content:space-between;flex-wrap:wrap">
+          <div>
+            <div class="muted">House edge</div>
+            <strong>${pct(edge)}</strong>
+          </div>
+          <div>
+            <div class="muted">Expected loss</div>
+            <strong class="${klass}">${fmt(expLoss)}</strong>
+          </div>
+        </div>
+      `;
+    }
+    function resetRTP(){
+      document.getElementById('rtpIn').value='';
+      document.getElementById('sessionWager').value='';
+      document.getElementById('rtpOut').innerHTML='';
+    }
+
+    // Init
+    document.getElementById('y').textContent = new Date().getFullYear();
+    buildBonuses();
+    // Auto-calc defaults
+    calcWagering();
+    calcRTP();
+  </script>
+</body>
+</html>
